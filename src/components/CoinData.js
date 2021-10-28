@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { DataGrid } from "@material-ui/data-grid";
-import Button from "@material-ui/core/Button";
-import { Image } from "@material-ui/icons";
-
+// import Button from "@material-ui/core/Button";
+import NumberFormat from "react-number-format";
 
 
 const URL =
@@ -12,7 +11,7 @@ const URL =
 const columns = [
   {
     field: "image",
-    headerName: "Image",
+    headerName: "",
     width: 50,
     height: 50,
     editable: false,
@@ -23,14 +22,24 @@ const columns = [
   {
     field: "name",
     headerName: "Name",
-    width: 150,
+    width: 250,
     editable: false,
+    options:{customHeadRender: ()=>null}
   },
   {
     field: "price",
     headerName: "Price",
-    width: 120,
+    width: 200,
     editable: false,
+    renderCell: (params) => (
+      <NumberFormat
+        value={params.value}
+        prefix="$"
+        decimalSeparator="."
+        thousandSeparator={true}
+        displayType="text"
+         />
+    )
   },
   {
     field: "marketCap",
@@ -68,15 +77,15 @@ const CoinData = () => {
   });
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 565, width: 690, margin:"0 auto" }}>
       <DataGrid
         rows={rows}
         columns={columns}
         pmarketCapSize={5}
-        checkboxSelection
+        checkboxSelection={false}
         disableSelectionOnClick
       />
-      <Button>Get Data</Button>
+      {/* <Button>Get Data</Button> */}
     </div>
   );
 };
